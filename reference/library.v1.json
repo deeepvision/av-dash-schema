@@ -1,0 +1,525 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Recordings Library",
+    "version": "1.0",
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/sermons": {
+      "get": {
+        "summary": "List Sermons",
+        "tags": [
+          "Sermon"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "sermons": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/sermon"
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "total": {
+                          "type": "number"
+                        },
+                        "limit": {
+                          "type": "number"
+                        },
+                        "offset": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "List Sermons": {
+                    "value": {
+                      "id": 1043,
+                      "title": "Sermon Title"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "sermon:list",
+        "description": "",
+        "parameters": [
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "limit",
+            "description": "Sermons count in response"
+          },
+          {
+            "schema": {
+              "type": "number"
+            },
+            "in": "query",
+            "name": "offset",
+            "description": "Offset from the start"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "sort",
+            "description": "Sort field and order"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "text",
+            "description": "Text search in each text field of the Sermon"
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create Sermon",
+        "operationId": "sermon:create",
+        "tags": [
+          "Sermon"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sermon"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "sponsor": {
+                    "type": "string"
+                  },
+                  "publishAt": {
+                    "type": "string"
+                  },
+                  "speakers": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "translators": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "conference": {
+                    "type": "string"
+                  },
+                  "series": {
+                    "type": "string"
+                  },
+                  "recordedAt": {
+                    "type": "string"
+                  },
+                  "copyright": {
+                    "type": "string"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "isDownloadAllowed": {
+                    "type": "boolean"
+                  },
+                  "isFeatured": {
+                    "type": "boolean"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "attachments": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sermons/{id}": {
+      "get": {
+        "summary": "Get Sermon",
+        "tags": [
+          "Sermon"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sermon"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "sermon:get",
+        "parameters": []
+      },
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true
+        }
+      ],
+      "put": {
+        "summary": "Update Sermon",
+        "operationId": "sermon:update",
+        "tags": [
+          "Sermon"
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sermon"
+                }
+              }
+            }
+          }
+        },
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "sponsor": {
+                    "type": "string"
+                  },
+                  "publishAt": {
+                    "type": "string"
+                  },
+                  "speakers": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "translators": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "conference": {
+                    "type": "string"
+                  },
+                  "series": {
+                    "type": "string"
+                  },
+                  "recordedAt": {
+                    "type": "string"
+                  },
+                  "copyright": {
+                    "type": "string"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "isDownloadAllowed": {
+                    "type": "boolean"
+                  },
+                  "isFeatured": {
+                    "type": "boolean"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "attachments": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "sermon": {
+        "$ref": "#/components/schemas/recording"
+      },
+      "recording": {
+        "title": "Recording",
+        "type": "object",
+        "description": "Parent object for Sermons, Stories, Music and Books",
+        "properties": {
+          "id": {
+            "type": "number",
+            "description": "The unique ID of a Recording. MUST be generated on creation. Not allowed to be set manually.\n\nNumbering starts from 1000."
+          },
+          "title": {
+            "type": "string"
+          },
+          "sponsor": {
+            "$ref": "#/components/schemas/sponsor"
+          },
+          "publishAt": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "speakers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/person"
+            }
+          },
+          "translators": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/person"
+            }
+          },
+          "conference": {
+            "$ref": "#/components/schemas/conference"
+          },
+          "series": {
+            "$ref": "#/components/schemas/series"
+          },
+          "recordedAt": {
+            "type": "string"
+          },
+          "copyright": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/tag"
+            }
+          },
+          "isDownloadAllowed": {
+            "type": "boolean"
+          },
+          "isFeatured": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/file"
+            }
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "sponsor": {
+        "title": "Sponsor",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ]
+      },
+      "da": {
+        "title": "Distribution Agreement",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ]
+      },
+      "person": {
+        "title": "Person",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "user": {
+        "title": "User",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          }
+        }
+      },
+      "conference": {
+        "title": "Conference",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "series": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/series"
+            }
+          }
+        }
+      },
+      "series": {
+        "title": "Series",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "tag": {
+        "title": "Tag",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ]
+      },
+      "file": {
+        "title": "File",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "ext": {
+                "type": "string"
+              },
+              "size": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Sermon"
+    }
+  ]
+}
