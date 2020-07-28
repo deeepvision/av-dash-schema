@@ -180,6 +180,84 @@
             }
           }
         }
+      },
+      "put": {
+        "summary": "",
+        "operationId": "sermon:create",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "sponsor": {
+                    "type": "number"
+                  },
+                  "publishedAt": {
+                    "type": "string"
+                  },
+                  "speakers": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "translators": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "conference": {
+                    "type": "number"
+                  },
+                  "series": {
+                    "type": "number"
+                  },
+                  "recordedAt": {
+                    "type": "string"
+                  },
+                  "copyright": {
+                    "type": "string"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": [
+                        "string",
+                        "number"
+                      ]
+                    }
+                  },
+                  "isDownloadAllowed": {
+                    "type": "boolean"
+                  },
+                  "isFeatured": {
+                    "type": "boolean"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "attachments": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/sermons/{id}": {
@@ -214,15 +292,12 @@
           "required": true
         }
       ],
-      "put": {
-        "summary": "Update Sermon",
+      "patch": {
+        "summary": "",
         "operationId": "sermon:update",
-        "tags": [
-          "Sermon"
-        ],
         "responses": {
           "200": {
-            "description": "",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
@@ -232,7 +307,7 @@
             }
           }
         },
-        "description": "",
+        "description": "Route for update data of a sermon",
         "requestBody": {
           "content": {
             "application/json": {
@@ -248,23 +323,26 @@
                   "publishAt": {
                     "type": "string"
                   },
+                  "createdAt": {
+                    "type": "string"
+                  },
                   "speakers": {
                     "type": "array",
                     "items": {
-                      "type": "string"
+                      "type": "number"
                     }
                   },
                   "translators": {
                     "type": "array",
                     "items": {
-                      "type": "string"
+                      "type": "number"
                     }
                   },
                   "conference": {
-                    "type": "string"
+                    "type": "integer"
                   },
                   "series": {
-                    "type": "string"
+                    "type": "number"
                   },
                   "recordedAt": {
                     "type": "string"
@@ -275,7 +353,10 @@
                   "tags": {
                     "type": "array",
                     "items": {
-                      "type": "string"
+                      "type": [
+                        "string",
+                        "number"
+                      ]
                     }
                   },
                   "isDownloadAllowed": {
@@ -290,13 +371,49 @@
                   "attachments": {
                     "type": "array",
                     "items": {
-                      "type": "string"
+                      "type": "number"
                     }
                   },
                   "stage": {
                     "type": "integer"
                   },
                   "hiddenAt": {
+                    "type": "string"
+                  },
+                  "distributionAgreement": {
+                    "type": "number"
+                  },
+                  "site": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "legalReviewers": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "technicalReviewers": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "contentReviewers": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "publishedAt": {
+                    "type": "string"
+                  },
+                  "reviewStatus": {
+                    "$ref": "#/components/schemas/reviewStatus"
+                  },
+                  "archivedAt": {
                     "type": "string"
                   }
                 }
