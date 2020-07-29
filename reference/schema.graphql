@@ -45,6 +45,12 @@ type BibleChapter implements Node {
     url: URL!
 }
 
+type BibleVerse implements Node {
+    id: ID!
+    text: String!
+    url: URL!
+}
+
 type BibleConnection {
     aggregate: Aggregate
     edges: [BibleEdge!]
@@ -196,7 +202,13 @@ type PageInfo {
 
 type Person implements Node {
     description: String!
-    givenName: String!
+    givenName: String! #?
+    surname: String! #?
+    firstName: String!
+    lastName: String!
+    salutation: Salutation
+    suffix: String
+    designations: String
     id: ID!
     name: String!
     photo: Image
@@ -210,8 +222,22 @@ type Person implements Node {
         sponsorId: ID
         tagName: String
     ): RecordingConnection!
-    summary: String!
-    surname: String!
+    summaryBio: String!
+    extendedBio: String!
+    website: String
+    phone: String
+    email: String
+    contactPerson: String
+    contactEmail: String
+    isPreapproved: Boolean
+    requiredEvaluations: Int
+    isHidden: Boolean
+}
+
+enum Salutation {
+    MR
+    MS
+    DR
 }
 
 type PersonConnection {
@@ -469,14 +495,124 @@ type Recording implements Node {
     id: ID!
     mediaFiles: [MediaFile!]!
     presenters: [Person!]!
+    publishAt: Date
     recordingDate: Date
     sequence: Sequence
     shareUrl: URL
+    speakers: [Person]!
+    translators: [Person]!
+    conference: Conference
+    series: [Series]!
+    tags: [Tag]
+    bibleReferences: [BibleReference]
+    isFeatured: Boolean
+    stage: RecordingStage
+    hiddenAt: Date
+    discributionAgreement: DiscributionAgreement
+    publishDestinations: [PublishDesctination]
+    legalReviewers: [User]
+    technicalReviewers: [User]
+    contentReviewers: [User]
+    messages: [Message]
+    language: Language
+    publishedAt: Date
+    reviewStatus: ReviewInfo
+    arhivedAt: Date
+    issues: [Issue]
     sponsor: Sponsor
     title: String!
     transcript: Transcript
     videoFiles: [VideoFile!]!
     viewerHasFavorited: Boolean!
+}
+
+type BibleReference {
+    book: BibleBook
+    chapter: BibleChapter
+    verse: BibleVerse
+}
+
+type Conference implements Node {
+    id: ID!
+    title: String!
+    series: [Series]
+}
+
+type Series implements Node {
+    id: ID!
+    title: String!
+}
+
+type Issue implements Node {
+    id: ID!
+    type: IssueType
+    startTime: String
+    endTime: String
+    description: String
+    isGeneral: Boolean
+}
+
+type IssueType {
+    id: ID!
+    title: String,
+    category: IssueCategory
+}
+
+type IssueCategory {
+    title: String
+    issues: [IssueType]
+}
+
+type ReviewInfo {
+    content: ReviewStatus
+    technical: ReviewStatus
+    legal: ReviewStatus
+}
+
+enum ReviewStatus {
+    PENDING
+    FLAGGED
+    ACCEPTED
+    REJECTED
+}
+
+type Message implements Node {
+    id: ID!
+    type: MessageType
+    actionType: ActionType #exists if type === ACTION
+    user: User
+    replies: [Message]
+    forward: Message
+    assignments: [User]
+    createdAt: Date
+}
+
+enum ActionType {
+    CHANGE
+    ARCHIVE
+}
+
+enum MessageType {
+    ACTION
+    COMMENT
+}
+
+type DiscributionAgreement implements Node {
+    id: ID!
+    title: String
+}
+
+type PublishDesctination implements Node {
+    id: ID!
+    title: String
+    url: String
+}
+
+enum RecordingStage {
+    DRAFT
+    SCREENING
+    SCHEDULE
+    PUBLISHED
 }
 
 type RecordingConnection {
@@ -638,6 +774,13 @@ type TagEdge {
 type Transcript implements Node {
     id: ID!
     text: String!
+    keywords: String
+    transcriber: Transcriber
+}
+
+type Transcriber implements Node {
+    id: ID!
+    title: String!
 }
 
 scalar URL
@@ -665,6 +808,22 @@ type User implements Node {
         orderBy: [UserPlaylistsOrder!]
     ): UserPlaylistConnection!
     surname: String!
+    email: String!
+    state: String
+    city: String
+    address: String
+    postalCode: String
+    settings: UserSettings
+}
+
+type UserSettings {
+    wiretapQuality: WiretapQuality
+    autoplay: Boolean
+    #    timeZone:
+}
+
+type WiretapQuality {
+    value: Int,
 }
 
 input UserLoginInput {
