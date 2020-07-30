@@ -230,6 +230,7 @@ type Person implements Node {
     contactPerson: String
     contactEmail: String
     isPreapproved: Boolean
+    isNew: Boolean
     requiredEvaluations: Int
     isHidden: Boolean
     statistic: PersonRolesStatistic
@@ -538,6 +539,7 @@ type Recording implements Node {
     transcript: Transcript
     videoFiles: [VideoFile!]!
     viewerHasFavorited: Boolean!
+    release: MediaRelease
 }
 
 type BibleReference {
@@ -828,11 +830,25 @@ type User implements Node {
     address: String
     postalCode: String
     settings: UserSettings
+    roles: [Role!]
+}
+
+type Role implements Node {
+    id: ID!
+    name: String!
+    displayName: String!
+    permissions: Permission
+}
+
+type Permission implements Node {
+    id: ID!
+    name: String
 }
 
 type UserSettings {
     wiretapQuality: WiretapQuality
     autoplay: Boolean
+    language: Language
     #    timeZone:
 }
 
@@ -938,3 +954,44 @@ type VideoFile implements Node {
     width: Int!
 }
 
+type Term implements Node {
+    id: ID!
+    url: String
+    title: String
+    type: TermType
+    summary: String
+    sponsor: Sponsor
+    recordings: [Recording]
+    recordingsCount: Int!
+    reliases: [MediaRelease]
+    reliasesCount: Int!
+    isClosed: Boolean
+    createdAt: Date
+}
+
+enum TermType {
+    SINGLE
+    MUSIC
+    CONFERENCE
+    MASTER
+}
+
+type MediaRelease implements Node {
+    id: ID!
+    speaker: Person
+    personName: String!
+    isConfirmed: Boolean
+    createdAt: Date
+}
+
+type Notification implements Node {
+    id: ID!
+    user: User
+    relatedEntity: Entity
+    action: String
+    message: String
+    readAt: Date
+    createdAt: Date
+}
+
+union Entity = Recording | Person
