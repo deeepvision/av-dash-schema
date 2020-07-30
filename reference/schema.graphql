@@ -232,6 +232,20 @@ type Person implements Node {
     isPreapproved: Boolean
     requiredEvaluations: Int
     isHidden: Boolean
+    statistic: PersonRolesStatistic
+}
+
+type PersonRolesStatistic {
+    speaker: PersonRoleStatistic
+    author: PersonRoleStatistic
+    nurrator: PersonRoleStatistic
+    translator: PersonRoleStatistic
+}
+type PersonRoleStatistic {
+    sermonsCount: Int
+    storiesCount: Int
+    audioBookTracksCount: Int
+    musicTracksCount: Int
 }
 
 enum Salutation {
